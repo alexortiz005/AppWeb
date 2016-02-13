@@ -8,14 +8,10 @@
 	    	<div class="header">
 	    	</div>
 	        <div>
-	            <g:each var="users" in="${user}">
+	            <g:each var="users" in="${userList}">
 	            	<p>El usuario ${users.usuario} nacio en ${users.fecha}. Su email es ${users.email} y la contraseña es ${users.contraseña}</p>
 	            	</br>
-	            	</br>
-	            	</br>
-	            	</br>
-	            	</br>
-	            	</br>
+
 	            </g:each>
 	        </div>
 	        <div>
