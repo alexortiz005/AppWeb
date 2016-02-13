@@ -6,8 +6,9 @@ class UsuarioController {
     }
     
     def registro() {
-    	def user = new Usuario(params)
-    	user.save()
-    	render (view:"registro", model: [user:Usuario.list()])
+    	render(params)
+    	def users = new Usuario(params)
+    	users.save(failOnError: true)
+    	render (view:"registro", model: [userList:Usuario.list()])
     }
 }
