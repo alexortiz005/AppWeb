@@ -6,12 +6,14 @@ class PuntoInteres {
 
 	static belongsTo = [ usuario : Usuario ]
 	
-	String x
-	String y
+	String lat
+	String lon
 	String nombre
 	String descripcion
 	String calificacion
+	String tipo
 
     static constraints = {
+    	usuario nullable: true
     }
 }

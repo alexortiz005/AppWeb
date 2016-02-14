@@ -1,6 +1,8 @@
 package bikeapp
 
 class PuntoInteresController {
+
+	def puntoInteresService
 	
 
     def index() {
@@ -8,8 +10,7 @@ class PuntoInteresController {
     }
     
     def registro() {
-    	Usuario test = Usuario.get(params.dueño)
-    	PuntoInteres local = new PuntoInteres(x:params.x,y:params.y,nombre:params.nombre,descripcion:params.descripcion,calificacion:params.calificacion,usuario:test)
-    	local.save(failOnError: true)
+    	puntoInteresService.agregarPunto(params)
+		render(view:index,model:[:])
     }
 }
