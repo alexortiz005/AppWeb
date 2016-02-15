@@ -1,10 +1,10 @@
+<%@ defaultCodec="none" %> 
+
 <!DOCTYPE html>
-<asset:javascript src="mapa.js"/>
 <html>
   <head>
+  	<script src="https://maps.google.com/maps/api/js"></script>
     <title>Mapa</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
     <style>
       html, body {
         height: 100%;
@@ -18,34 +18,47 @@
     </style>
   </head>
   <body>
-    <div id="mapa"></div>
-    <script type="text/javascript">
-    	var map;
-    	var marker;
-		function initMap() {
-			var myLatlng = new google.maps.LatLng(10,10);
-			var options = {
-				center: myLatlng,
-    			zoom: 9
-			}
-
-  			map = new google.maps.Map(document.getElementById('mapa'),options);
-  			//agregarMarcador("parking",new google.maps.LatLng(10,10),"Hello World!");
+  	<g:javascript>
+  	var map;
+  	
+  	function initMap() {
+		var myLatlng = new google.maps.LatLng(10,10);
+		var options = {
+			center: myLatlng,
+   			zoom: 9,
 		}
-    </script>
+		map = new google.maps.Map(document.getElementById('mapa'),options);
+	}
+	
+	google.maps.event.addDomListener(window, 'load', test);
+	
+	function addMarkerToMap(nombre, lat, lon, tipo){
+    	var infowindow = new google.maps.InfoWindow();
+    	var myLatLng = new google.maps.LatLng(lat, lon);
+    	var marker = new google.maps.Marker({
+    	    position: myLatLng,
+    	    map: map,
+    	});
+    }
+    function test(){
+    	initMap();
+    	for (i = 10; i < 12; i=i+0.5) {
+    		addMarkerToMap("i",i,i,"parking");
+		}
+    }
+  	
+	</g:javascript>
+    <div id="mapa"></div>
     <g:each var="punto" in="${puntos}">
-    	<script type="text/javascript">
-    		var posicion = new google.maps.LatLng(parseInt("${punto.lat}"),parseInt("${punto.lon}"));
-			marker = new google.maps.Marker({
-    			position: posicion,
-    			title: "${punto.nombre}",
-    			icon: '../assets/'+"${punto.tipo}"+'_icon.png'
-  			});
-  			marker.setMap(map);
-    		alert("${punto.tipo}");
-    	</script>
-
+    	<script>  
+        		//var data = ${raw(punto)};
+        		//var objeto = JSON.parse(JSON.stringify(data));
+        		//alert(objeto.nombre);
+        		//addMarker(objeto.nombre,objeto.lat,objeto.lon,objeto.tipo);
+    	</script> 
     </g:each>
+    
+    
     <div id="formulario">
     	<g:form name="myForm" controller="mapa">
     		<label>Tipo:</label><g:textField name="tipo"/></br>
@@ -56,7 +69,5 @@
     		<g:actionSubmit action="registrar" value="Registrar!"/>
     	</g:form>
     </div>
-    <script src="https://maps.google.com/maps/api/js?key=AIzaSyAnF768E1k6-yMQfzd3b5zrAYEJtP2pr-s&callback=initMap"
-    async defer></script>
   </body>
 </html>

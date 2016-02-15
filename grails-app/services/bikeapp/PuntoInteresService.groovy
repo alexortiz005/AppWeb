@@ -2,7 +2,7 @@ package bikeapp
 import groovy.json.*
 
 import grails.transaction.Transactional
-import grails.converters.*
+import grails.converters.XML
 
 @Transactional
 class PuntoInteresService {
