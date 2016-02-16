@@ -1,9 +1,11 @@
 <%@ defaultCodec="none" %> 
+<%! import grails.converters.JSON %>
 
 <!DOCTYPE html>
 <html>
   <head>
   	<script src="https://maps.google.com/maps/api/js"></script>
+  	<asset:javascript src="mapa.js"/>
     <title>Mapa</title>
     <style>
       html, body {
@@ -19,33 +21,8 @@
   </head>
   <body>
   	<g:javascript>
-  	var map;
-  	
-  	function initMap() {
-		var myLatlng = new google.maps.LatLng(10,10);
-		var options = {
-			center: myLatlng,
-   			zoom: 9,
-		}
-		map = new google.maps.Map(document.getElementById('mapa'),options);
-	}
-	
-	google.maps.event.addDomListener(window, 'load', test);
-	
-	function addMarkerToMap(nombre, lat, lon, tipo){
-    	var infowindow = new google.maps.InfoWindow();
-    	var myLatLng = new google.maps.LatLng(lat, lon);
-    	var marker = new google.maps.Marker({
-    	    position: myLatLng,
-    	    map: map,
-    	});
-    }
-    function test(){
-    	initMap();
-    	for (i = 10; i < 12; i=i+0.5) {
-    		addMarkerToMap("i",i,i,"parking");
-		}
-    }
+
+	google.maps.event.addDomListener(window, 'load', function() { test(${puntos as JSON}) });
   	
 	</g:javascript>
     <div id="mapa"></div>

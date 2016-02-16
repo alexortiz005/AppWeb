@@ -7,16 +7,13 @@ class MapaController {
 	def puntoInteresService
 
     def index() { 
-    	def listaPuntos = []
-    	for (def punto : PuntoInteres.list()) {
-   			listaPuntos.push(punto as JSON)
-		}
-		[puntos : listaPuntos]
+
+		[puntos : PuntoInteres.list()]
 
     }
     
     def registrar() {
     	puntoInteresService.agregarPunto(params)
-    	render(view: 'index')
+    	render(view: 'index',model: [puntos : PuntoInteres.list()])
     }
 }
