@@ -17,10 +17,14 @@ var map;
     	    icon: '../assets/'+tipo+'_icon.png',
     	});
     }
-    function test(puntosJSON){
+    function test(puntosJSON,parchesJSON){
     	initMap();
     	for (var i=0; i < puntosJSON.length; i++) {
     		var punto = puntosJSON[i];
-			addMarkerToMap(punto.nombre,parseInt(punto.lat),parseInt(punto.lon),"parking");
+			addMarkerToMap(punto.nombre,parseInt(punto.lat),parseInt(punto.lon),punto.tipo);
+		}
+		for (var i=0; i < parchesJSON.length; i++) {
+    		var parche = parchesJSON[i];
+			addMarkerToMap(parche.nombre,parseInt(parche.lat),parseInt(parche.lon),"parche");
 		}
     }
