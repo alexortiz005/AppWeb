@@ -11,24 +11,41 @@ function initMap() {
    map.addListener('click',function(e){
       //alert(e.latLng)
       addMarker(e.latLng)
-      addToArray(e.latLng)
-      printArray()
+      printArrayJQ()
    });
 }
 
 function addMarker(location){
    var marker = new google.maps.Marker({
       position: location,
-      map: map
+      map: map,
+      draggable:true
    });
+   points[index++] = marker
 }
 
-function addToArray(newItem){
-   points[index] = newItem
-   index = index+1
+function printArrayJQ(){
+   var $finalString = $("<table></table>");
+   $.each(points, function(i,item){
+      var $line = $("<tr></tr>");
+      $line.append( $("<td></td>").html(i) );
+      $line.append( $("<td></td>").html(item.position.toString()) );
+      $line.append( $("<td></td>").html( "<button type=\"button\" id=\"botonPunto"+i+"\" data-index="+i+">Borrar</button>") );
+      $finalString.append($line);
+   });
+   $("#table").html($finalString);
+   for( i = 0 ; i < points.length ; i++ ){
+      $("#botonPunto"+i).click(function(){
+         var ind = $(this).data("index");
+         points[ind].setMap(null);
+         points.splice(ind,1);
+         index = index-1;
+         printArrayJQ();
+      });
+   }
 }
 
-function printArray(){
+function printArrayJS(){
    //for(i=0;i<points.length;i++){
       //alert(points[i])
    //points.toString()
@@ -39,3 +56,6 @@ function printArray(){
    document.getElementById("table").innerHTML = toPrint
 }
 
+function test(){
+   alert("OK");
+}
