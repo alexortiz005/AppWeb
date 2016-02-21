@@ -4,7 +4,7 @@ import groovy.transform.ToString
 @ToString
 class PuntoInteres {
 
-	static belongsTo = [ usuario : Usuario ]
+	static belongsTo = [ usuario : Usuario, ruta: Ruta]
 	
 	String lat
 	String lon
